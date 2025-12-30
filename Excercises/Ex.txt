@@ -1,0 +1,111 @@
+﻿EX 01:
+Create a class called player. The player has a the following properties: Health, Speed, Attack, Defence.
+The player also have a GraphicsDrawer allowing him to be properly drawn.
+
+An example of how I could create a player is the following:
+Player myPlayer = new Player(position: new Vector2(0,0), Health: 500, Speed: 20, Attack: 100, Defence: 50);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+EX 02:
+
+Currently the GraphicsDrawer class has 2 different integers that resemble the width and height:
+int m_SprWidth = 0;
+int m_SprHeigth = 0;
+
+Let's change this to be a private vector2 called size (use correct naming convention!). Then let's create a public property
+that allows us to access the size but DOESN'T allows us to set outside of the graphicsdrawer class.
+The setter of this property set a new value to the private vec2 size and re-initializes the sprite to properly display the new size.
+
+It's really similar to what we did for m_TexturePath string var and TexturePath property but we are now dealing with vector2 and sprites!
+
+Good Luck! <3
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+EX 03:
+
+Currently the Program class and the Main method is full of things:
+
+static void Main(string[] args)
+{
+    Window window = new Window(800, 600, "Test");
+    //GraphicsDrawer graphicsdrawer = new GraphicsDrawer(0, 0, 50,50, "../../Assets/test.png");
+    GraphicsDrawer graphicsDrawer = new GraphicsDrawer(new Vector2(500, 500), 50, 80, "../../Assets/test.png");
+
+    Player myPlayer = new Player(position: new Vector2(0, 0), 500, 20, 100, 50);
+    myPlayer.Renderer.SetSprite("MY_NEW_SPRITE");
+            
+    while (window.IsOpened)
+    {
+        myPlayer.Renderer.Draw();
+        graphicsDrawer.Draw();
+        window.Update();
+    }
+}
+
+This is not ideal. Main is just our entry point and the cleaner it is the better. 
+Let's create a new class called Game. Game contains the following variables. 
+Window window;
+Player player;
+Use correct naming convention for the variables OBV! 
+
+Main method needs to be like this
+
+static void Main(string[] args)
+{
+    Game game = new Game(800, 600, "MyGame");
+    game.Update();
+}
+
+As you can see we are now just creating the Game class in Main and we are passing the window size and title.
+everything else needs to be handled inside the Game class. 
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+EX04: 
+
+Good the player can now move. However there is no gameplay yet and the black background looks.. empty. Let's create a class called background
+that inherits from our GameObject class and has ONLY one variable that is called "m_ScrollSpeed". Let's do a constructor that use the base gameobject one
+PLUS a variable to set our scrolling speed. Similar to what we have done for player but we are now setting just our scrolling speed.
+Then create an instance of this class in our Game class and call the draw method in the correct spot.
+the final result should be a full-screen sized image that get's drawn and the player is drawn OVER it with NO scrolling (Yet)..
+
+PRO MODE: Ok. Looks good, but we want some movement. Make the image scroll by moving it on the Y axis in update! 
+If you have done it correctly you should notice that the image doesn't repeat automatically. This is the end of the pro-mode.
+
+MEGA-UBER-PRO-MODE:
+In order to make it scroll "infinitely" we need to think a little bit more to a solution and no, shaders are not allowed now. This is a hard task but let's think about it.
+Currently we have our background drawn by our gameobject class. In order to fake an infinite scroll we will need TWO gameobjects with the same Background texture 
+and when one reaches the end of the screen his position is instantly set on top of the other one, allowing us to fake an infinite scroll.
+As a start let's remove the inheritance from gameobject in our class. Background will not inherit from anything but inside we will have 2 variables of GameObject type like so:
+
+class Background
+{
+    private float m_ScrollSpeed;
+    GameObject bgA;
+    GameObject bgB;
+
+    public Background(Vector2 pos, Vector2 size, string path)
+    {
+        bgA = new GameObject(pos, size, path);
+
+        // Does this make sense to you? It's correct but as the excercise is really hard I wanted to unlock a small hint ;)
+        Vector2 bPos = new Vector2(pos.X, pos.Y - size.Y);
+        bgB = new GameObject(bPos, size, path);
+    }
+
+    public void Update()
+    {
+        //Make them scroll
+        //Control if bgA or bgB reached the end of screen height (Window.Current.Height)
+        //If so, set the position of A or B in the correct place with bgA.Position or bgB.position
+    }
+
+    // This just calls the draw of both gameobjects
+    public void Draw()
+    {
+        bgA.Draw();
+        bgB.Draw();
+    }
+}
