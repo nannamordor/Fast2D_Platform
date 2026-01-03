@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Graphics.ES11;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,11 +135,7 @@ namespace Fast2D_TestGame.Scripts
 
         public bool CheckRectangleRectangleCollision(Collider other)
         {
-            //se non collide
-            /* m_Position.X - m_Size.X * 0.5f <= other.m_Position.X + other.m_Size.X * 0.5f ||
-            m_Position.Y + m_Size.Y * 0.5f >= other.m_Position.Y - other.m_Size.Y * 0.5f ||
-            m_Position.Y - m_Size.Y * 0.5f <= other.m_Position.Y + other.m_Size.Y * 0.5f
-            */
+           
 
             if (m_Position.X + m_Size.X * 0.5f >= other.m_Position.X - other.m_Size.X * 0.5f) //sinistra a destra
                
@@ -149,7 +146,10 @@ namespace Fast2D_TestGame.Scripts
             else
             {
                 Console.WriteLine("true");
+               
                 return true;
+
+                
             }
         }
 

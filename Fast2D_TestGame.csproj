@@ -61,6 +61,7 @@
     <Compile Include="Scripts\Object.cs" />
     <Compile Include="Scripts\IUpdatable.cs" />
     <Compile Include="Scripts\PhysicsManager.cs" />
+    <Compile Include="Scripts\Platform.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Compile Include="Scripts\Bullet.cs" />
     <Compile Include="Scripts\Scene.cs" />
@@ -75,6 +76,8 @@
     <Content Include="Assets\bullet.png" />
     <Content Include="Assets\Enemy.png" />
     <Content Include="Assets\no_texture.png" />
+    <Content Include="Assets\spr_link.png" />
+    <Content Include="Assets\spr_platform.png" />
     <Content Include="Assets\test.png" />
     <Content Include="Excercises\Ex.txt" />
   </ItemGroup>

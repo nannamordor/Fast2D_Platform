@@ -14,7 +14,7 @@ namespace Fast2D_TestGame.Scripts
         public Scene CurrentScene;
         Window m_Window;
         GameObject m_Player;
-        GameObject m_Enemy;
+        GameObject m_Platform;
         Object m_Background;
 
         public Game(int WinWdth, int WinHgth, string WinName)
@@ -35,13 +35,13 @@ namespace Fast2D_TestGame.Scripts
             //gameobjects
             m_Background = new Background(new Vector2(0, 0), new Vector2(800, 800), "../../Assets/bg.jpg", 100);
             CurrentScene.AddObejctToScene(m_Background);
-            m_Player = new Player(new Vector2(350, 750), new Vector2(80, 100), "../../Assets/test.png", 100, 500, 0.05f, 30);
+            m_Player = new Player(new Vector2(350, 750), new Vector2(64,64), "../../Assets/spr_link.png", 100, 500, 0.05f, 30);
             m_Player.CreateCollider(ColliderType.Rectangle);
-            m_Enemy = new Enemy(new Vector2(0, 20), new Vector2(50, 50), "../../Assets/Enemy.png", 100, 500, m_Player);
-            m_Enemy.CreateCollider(ColliderType.Rectangle);
+            m_Platform = new Platform(m_Player.Position, new Vector2(100, 18), "../../Assets/spr_platform.png", 0);
+            m_Platform.CreateCollider(ColliderType.Rectangle);
 
             CurrentScene.AddObejctToScene(m_Player);
-            CurrentScene.AddObejctToScene(m_Enemy);
+            CurrentScene.AddObejctToScene(m_Platform);
             CurrentScene.AddObejctToScene(physicsManager);
 
         }
@@ -56,6 +56,11 @@ namespace Fast2D_TestGame.Scripts
                 CurrentScene.Update();
                 CurrentScene.Draw();
                 m_Window.Update();
+
+                if (physicsManager.CheckRectangleRectangleCollision(m_Player.Collider, m_Platform.Collider))
+                {
+                    Console.WriteLine("Player Sulla Piattaforma");
+                }
             }
         }
     }

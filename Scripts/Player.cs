@@ -16,6 +16,7 @@ namespace Fast2D_TestGame.Scripts
         Queue<Bullet> m_PlayerBullets;
         float m_BulletCooldown;
         float m_BulletTimer = 0;
+        public bool m_IsColliding = false;
 
         //costruttore, ctor
         public Player(Vector2 pos, Vector2 size, string path, int health, float speed, float bulletCooldown, int bulletPoolSize) : base(pos, size, path)
@@ -29,7 +30,7 @@ namespace Fast2D_TestGame.Scripts
             for (int i = 0; i < bulletPoolSize; i++)
             {
                 
-                Bullet playerBullet = new Bullet(new Vector2(Position.X + Size.X / 2, Position.Y), new Vector2(20, 20), "../../Assets/bullet.png", 500);
+                Bullet playerBullet = new Bullet(new Vector2(Position.X + Size.X / 2, Position.Y), new Vector2(20, 20), "../../Assets/spr_link.png", 500);
                 playerBullet.IsActive = false;
                 m_PlayerBullets.Enqueue(playerBullet);
                 Game.Instance.CurrentScene.AddObejctToScene(playerBullet);
@@ -48,6 +49,8 @@ namespace Fast2D_TestGame.Scripts
             if (Window.Current.GetKey(KeyCode.W) || Window.Current.GetKey(KeyCode.Up))
             {
                 Position.Y -= frameSpeed;
+
+                
             }
 
             //move down
@@ -105,7 +108,13 @@ namespace Fast2D_TestGame.Scripts
 
                     m_BulletTimer = m_BulletCooldown;
                 }
-            }          
+            }
+
+            if (m_IsColliding == true)
+                {
+                //se collide è true ed è di tipo player player pos = y della piattaforma + altezza piattaforma
+                //se il player preme w rimettere a false la collisione
+            }
         }      
     }
 }
