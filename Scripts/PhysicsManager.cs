@@ -68,6 +68,9 @@ namespace Fast2D_TestGame.Scripts
         private Vector2 m_Position;
         private GameObject m_Owner;
         public bool IsColliding = false;
+        List<Collider> m_CollidingColliders;
+
+        
 
 
 
@@ -148,6 +151,14 @@ namespace Fast2D_TestGame.Scripts
             {
                 Console.WriteLine("Colliding");
                 IsColliding = true;
+
+                //Add collider to colliding colliders if other is not in the list
+                if (!m_CollidingColliders.Contains(other))
+                {
+                    m_CollidingColliders.Add(other);
+                }
+                
+            
                 return true;
                 
             }
@@ -155,6 +166,13 @@ namespace Fast2D_TestGame.Scripts
             {
                 Console.WriteLine("NotColliding");
                 IsColliding = false;
+
+                //If other is in the list remove it
+                if (m_CollidingColliders.Contains(other))
+                {
+                    m_CollidingColliders.Remove(other);
+                }
+
                 return false;
                 
 

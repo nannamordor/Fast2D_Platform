@@ -25,7 +25,7 @@ namespace Fast2D_TestGame.Scripts
         {
             m_Health = health;
             m_Speed = speed;
-         
+
         }
 
         public override void Update()
@@ -36,6 +36,8 @@ namespace Fast2D_TestGame.Scripts
 
             float frameSpeed = m_Speed * Window.Current.DeltaTime;
             m_IsColliding = m_Collider.IsColliding;
+
+
             //move up
             /*if (Window.Current.GetKey(KeyCode.W) || Window.Current.GetKey(KeyCode.Up))
             {
@@ -71,21 +73,37 @@ namespace Fast2D_TestGame.Scripts
 
 
             //add Gravity when not colliding with platform
-            Position.Y += m_Gravity;
-            if (m_IsColliding == true)
-            {
-                m_Gravity = 0;
-                
-            }
+            
 
+
+
+            if (m_IsColliding == true)
+            { 
+                 Position.Y += m_Gravity;
+            }
             else
             {
-                m_Gravity = 0.5f;
+                m_Gravity = 0;
             }
+        }
 
 
-        }   
-        
-      
+
+        /* metodo 1: if (m_IsColliding == true)
+        {
+            m_Gravity = 0;
+
+        }
+
+        else
+        {
+            m_Gravity = 0.5f;
+        }
+        */
+
+
     }
+
+
+}
 }
