@@ -15,8 +15,11 @@ namespace Fast2D_TestGame.Scripts
         float m_Speed = 0;
         Queue<Bullet> m_PlayerBullets;
         float m_BulletCooldown;
-        float m_BulletTimer = 0;
-        public bool m_IsColliding = false;
+        float m_PlatformTimer = 0;
+        bool m_IsColliding = false;
+        
+        //gravity
+        float m_Gravity = 0;
 
         //costruttore, ctor
         public Player(Vector2 pos, Vector2 size, string path, int health, float speed, float bulletCooldown, int bulletPoolSize) : base(pos, size, path)
@@ -29,7 +32,7 @@ namespace Fast2D_TestGame.Scripts
 
             for (int i = 0; i < bulletPoolSize; i++)
             {
-                
+
                 Bullet playerBullet = new Bullet(new Vector2(Position.X + Size.X / 2, Position.Y), new Vector2(20, 20), "../../Assets/spr_link.png", 500);
                 playerBullet.IsActive = false;
                 m_PlayerBullets.Enqueue(playerBullet);
@@ -44,14 +47,14 @@ namespace Fast2D_TestGame.Scripts
 
 
             float frameSpeed = m_Speed * Window.Current.DeltaTime;
-
+            m_IsColliding = m_Collider.IsColliding;
             //move up
-            if (Window.Current.GetKey(KeyCode.W) || Window.Current.GetKey(KeyCode.Up))
+            /*if (Window.Current.GetKey(KeyCode.W) || Window.Current.GetKey(KeyCode.Up))
             {
                 Position.Y -= frameSpeed;
 
                 
-            }
+            }*/
 
             //move down
             if (Window.Current.GetKey(KeyCode.S) || Window.Current.GetKey(KeyCode.Down))
@@ -74,54 +77,26 @@ namespace Fast2D_TestGame.Scripts
             //jump
             if (Window.Current.GetKey(KeyCode.Space))
             {
+                Position.Y -= 10;
                 Console.WriteLine("Jump");
             }
 
-
-            //revert player position if outofbounds
-
-            if (Position.Y <= 0)
-            {
-                Position.Y += frameSpeed;
-            }
-
-            if (Position.Y >= 800 - Size.Y)
-            {
-                Position.Y -= frameSpeed;
-            }
-
-            if (Position.X <= 0)
-            {
-                Position.X += frameSpeed;
-            }
-
-            if (Position.X >= 800 - Size.X)
-            {
-                Position.X -= frameSpeed;
-            }
-
-           m_BulletTimer -= Window.Current.DeltaTime;
-
-            //spara un proiettile ogni timer frame
-            if (m_BulletTimer <= 0)
-            { 
-                //shoot
-                if (Window.Current.GetKey(KeyCode.Space))
-                {
-                    Bullet dequeuedBullet = m_PlayerBullets.Dequeue();
-                    dequeuedBullet.Position = Position;
-                    dequeuedBullet.IsActive = true;
-                    m_PlayerBullets.Enqueue(dequeuedBullet);
-
-                    m_BulletTimer = m_BulletCooldown;
-                }
-            }
+            Position.Y += m_Gravity;
 
             if (m_IsColliding == true)
-                {
-                //se collide è true ed è di tipo player player pos = y della piattaforma + altezza piattaforma
-                //se il player preme w rimettere a false la collisione
+            {
+                m_Gravity = 0;
+                
             }
-        }      
+
+            else
+            {
+                m_Gravity = 0.5f;
+            }
+
+
+        }   
+        
+      
     }
 }

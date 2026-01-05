@@ -15,6 +15,7 @@ namespace Fast2D_TestGame.Scripts
         Sprite m_Sprite;
         Texture m_Texture;
         protected Collider m_Collider;
+        
 
 
         //dimensions

@@ -67,7 +67,10 @@ namespace Fast2D_TestGame.Scripts
         private Vector2 m_Size;
         private Vector2 m_Position;
         private GameObject m_Owner;
-        
+        public bool IsColliding = false;
+
+
+
 
         public Collider(float rad,  GameObject owner)
         {
@@ -75,8 +78,8 @@ namespace Fast2D_TestGame.Scripts
             m_Radius = rad;
             m_Owner = owner;
             m_Position = m_Owner.Position;
-
             ColliderType = ColliderType.Circle;
+            
 
         }
 
@@ -135,21 +138,27 @@ namespace Fast2D_TestGame.Scripts
 
         public bool CheckRectangleRectangleCollision(Collider other)
         {
-           
 
-            if (m_Position.X + m_Size.X * 0.5f >= other.m_Position.X - other.m_Size.X * 0.5f) //sinistra a destra
-               
+
+            if (m_Position.X + m_Size.X * 0.5f >= other.m_Position.X - other.m_Size.X * 0.5f &&
+                m_Position.X - m_Size.X * 0.5f <= other.m_Position.X + other.m_Size.X * 0.5f &&
+                m_Position.Y + m_Size.Y * 0.5f >= other.m_Position.Y - other.m_Size.Y * 0.5f &&
+                m_Position.Y - m_Size.Y * 0.5f <= other.m_Position.Y + other.m_Size.Y * 0.5f) //sinistra a destra
+
             {
-                Console.WriteLine("false");
-                return false;
+                Console.WriteLine("Colliding");
+                IsColliding = true;
+                return true;
+                
             }
             else
             {
-                Console.WriteLine("true");
-               
-                return true;
-
+                Console.WriteLine("NotColliding");
+                IsColliding = false;
+                return false;
                 
+
+
             }
         }
 

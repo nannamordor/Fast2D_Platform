@@ -32,6 +32,8 @@ namespace Fast2D_TestGame.Scripts
             // Removes an object from the scene
         }
 
+        
+
         public void Update()
         {
             // Calls update on each gameobject inside the scene

@@ -37,7 +37,7 @@ namespace Fast2D_TestGame.Scripts
             CurrentScene.AddObejctToScene(m_Background);
             m_Player = new Player(new Vector2(350, 700), new Vector2(64,64), "../../Assets/spr_link.png", 100, 500, 0.05f, 30);
             m_Player.CreateCollider(ColliderType.Rectangle);
-            m_Platform = new Platform(new Vector2(m_Player.Position.X, m_Player.Position.Y+m_Player.Size.Y-5), new Vector2(100, 18), "../../Assets/spr_platform.png", 0);
+            m_Platform = new Platform(new Vector2(m_Player.Position.X, m_Player.Position.Y+m_Player.Size.Y), new Vector2(100, 18), "../../Assets/spr_platform.png", 0);
             m_Platform.CreateCollider(ColliderType.Rectangle);
 
             CurrentScene.AddObejctToScene(m_Player);
