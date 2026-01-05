@@ -35,9 +35,9 @@ namespace Fast2D_TestGame.Scripts
             //gameobjects
             m_Background = new Background(new Vector2(0, 0), new Vector2(800, 800), "../../Assets/bg.jpg", 100);
             CurrentScene.AddObejctToScene(m_Background);
-            m_Player = new Player(new Vector2(350, 750), new Vector2(64,64), "../../Assets/spr_link.png", 100, 500, 0.05f, 30);
+            m_Player = new Player(new Vector2(350, 700), new Vector2(64,64), "../../Assets/spr_link.png", 100, 500, 0.05f, 30);
             m_Player.CreateCollider(ColliderType.Rectangle);
-            m_Platform = new Platform(m_Player.Position, new Vector2(100, 18), "../../Assets/spr_platform.png", 0);
+            m_Platform = new Platform(new Vector2(m_Player.Position.X, m_Player.Position.Y+m_Player.Size.Y-5), new Vector2(100, 18), "../../Assets/spr_platform.png", 0);
             m_Platform.CreateCollider(ColliderType.Rectangle);
 
             CurrentScene.AddObejctToScene(m_Player);
@@ -57,10 +57,6 @@ namespace Fast2D_TestGame.Scripts
                 CurrentScene.Draw();
                 m_Window.Update();
 
-                if (physicsManager.CheckRectangleRectangleCollision(m_Player.Collider, m_Platform.Collider))
-                {
-                    Console.WriteLine("Player Sulla Piattaforma");
-                }
             }
         }
     }

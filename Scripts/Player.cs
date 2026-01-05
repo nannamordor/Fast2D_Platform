@@ -71,6 +71,13 @@ namespace Fast2D_TestGame.Scripts
                 Position.X += frameSpeed;
             }
 
+            //jump
+            if (Window.Current.GetKey(KeyCode.Space))
+            {
+                Console.WriteLine("Jump");
+            }
+
+
             //revert player position if outofbounds
 
             if (Position.Y <= 0)
