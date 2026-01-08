@@ -13,15 +13,14 @@ namespace Fast2D_TestGame.Scripts
         //properties
         int m_Health = 0;
         float m_Speed = 0;
-        float m_BulletCooldown;
-        float m_PlatformTimer = 0;
-        bool m_IsColliding = false;
         
-        //gravity
-        float m_Gravity = 0;
+        bool m_IsColliding = false;
+        float m_Gravity= 0;
+        
+        
 
         //costruttore, ctor
-        public Player(Vector2 pos, Vector2 size, string path, int health, float speed, float bulletCooldown, int bulletPoolSize) : base(pos, size, path)
+        public Player(Vector2 pos, Vector2 size, string path, int health, float speed) : base(pos, size, path)
         {
             m_Health = health;
             m_Speed = speed;
@@ -73,37 +72,27 @@ namespace Fast2D_TestGame.Scripts
 
 
             //add Gravity when not colliding with platform
-            
-
-
 
             if (m_IsColliding == true)
-            { 
-                 Position.Y += m_Gravity;
+            {
+                m_Gravity = 0f;
             }
             else
             {
-                m_Gravity = 0;
+                m_Gravity = 1f;
+                Position.Y += m_Gravity;
             }
+
+         
         }
 
 
-
-        /* metodo 1: if (m_IsColliding == true)
-        {
-            m_Gravity = 0;
-
-        }
-
-        else
-        {
-            m_Gravity = 0.5f;
-        }
-        */
+        
+        
 
 
     }
 
 
 }
-}
+

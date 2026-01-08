@@ -153,10 +153,10 @@ namespace Fast2D_TestGame.Scripts
                 IsColliding = true;
 
                 //Add collider to colliding colliders if other is not in the list
-                if (!m_CollidingColliders.Contains(other))
+                /*if (!m_CollidingColliders.Contains(other))
                 {
                     m_CollidingColliders.Add(other);
-                }
+                }*/
                 
             
                 return true;
@@ -168,10 +168,10 @@ namespace Fast2D_TestGame.Scripts
                 IsColliding = false;
 
                 //If other is in the list remove it
-                if (m_CollidingColliders.Contains(other))
+                /*if (m_CollidingColliders.Contains(other))
                 {
                     m_CollidingColliders.Remove(other);
-                }
+                }*/
 
                 return false;
                 

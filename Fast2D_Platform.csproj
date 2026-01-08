@@ -60,6 +60,7 @@
     <Compile Include="Scripts\IUpdatable.cs" />
     <Compile Include="Scripts\PhysicsManager.cs" />
     <Compile Include="Scripts\Platform.cs" />
+    <Compile Include="Scripts\PlatformManager.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Compile Include="Scripts\Scene.cs" />
   </ItemGroup>
