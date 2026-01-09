@@ -44,8 +44,19 @@ namespace Fast2D_TestGame.Scripts
         {
             foreach (var c1 in m_Colliders)
             {
+                if (!c1.Owner.IsActive)
+                {
+                    continue;
+                }
+
                 foreach (var c2 in m_Colliders)
                 {
+
+                    if (!c2.Owner.IsActive)
+                    {
+                        continue;
+                    }
+
                     if (c1 == c2)
                     {
                         continue;
@@ -66,8 +77,9 @@ namespace Fast2D_TestGame.Scripts
         private float m_Radius;
         private Vector2 m_Size;
         private Vector2 m_Position;
-        private GameObject m_Owner;
-        public bool IsColliding = false;
+        public GameObject Owner{get; private set;}
+        public bool IsColliding{get; private set;}
+        
         List<Collider> m_CollidingColliders;
 
         
@@ -79,9 +91,10 @@ namespace Fast2D_TestGame.Scripts
         {
             //create a circle collider
             m_Radius = rad;
-            m_Owner = owner;
-            m_Position = m_Owner.Position;
+            Owner = owner;
+            m_Position = Owner.Position;
             ColliderType = ColliderType.Circle;
+            m_CollidingColliders = new List<Collider>();
             
 
         }
@@ -90,10 +103,11 @@ namespace Fast2D_TestGame.Scripts
         {
             //create a rectangle collider
             m_Size = size;
-            m_Owner = owner;
-            m_Position = m_Owner.Position;
+            Owner = owner;
+            m_Position = Owner.Position;
 
             ColliderType = ColliderType.Rectangle;
+            m_CollidingColliders = new List<Collider>();
         }
 
         public bool IsCollidingWith(Collider other)
@@ -149,14 +163,14 @@ namespace Fast2D_TestGame.Scripts
                 m_Position.Y - m_Size.Y * 0.5f <= other.m_Position.Y + other.m_Size.Y * 0.5f) //sinistra a destra
 
             {
-                Console.WriteLine("Colliding");
+                Console.WriteLine(Owner.ToString() + " with " + other.Owner.ToString());
                 IsColliding = true;
 
                 //Add collider to colliding colliders if other is not in the list
-                /*if (!m_CollidingColliders.Contains(other))
+                if (!m_CollidingColliders.Contains(other))
                 {
                     m_CollidingColliders.Add(other);
-                }*/
+                }
                 
             
                 return true;
@@ -164,26 +178,34 @@ namespace Fast2D_TestGame.Scripts
             }
             else
             {
-                Console.WriteLine("NotColliding");
-                IsColliding = false;
+                //Console.WriteLine("NotColliding");
+                
 
                 //If other is in the list remove it
-                /*if (m_CollidingColliders.Contains(other))
+                if (m_CollidingColliders.Contains(other))
                 {
                     m_CollidingColliders.Remove(other);
-                }*/
+                }
+
+                if (m_CollidingColliders.Count == 0)
+                {
+                    IsColliding = false;
+                }
 
                 return false;
-                
+
+
 
 
             }
         }
 
+      
+
         public void Update()
         {
             
-            m_Position = new Vector2(m_Owner.Position.X + m_Owner.Size.X * 0.5f, m_Owner.Position.Y + m_Owner.Size.Y * 0.5f);
+            m_Position = new Vector2(Owner.Position.X + Owner.Size.X * 0.5f, Owner.Position.Y + Owner.Size.Y * 0.5f);
         }
     }
 }

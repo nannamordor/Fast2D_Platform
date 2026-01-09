@@ -17,6 +17,7 @@ namespace Fast2D_TestGame.Scripts
         public Platform(Vector2 pos, Vector2 size, string path, float speed) : base(pos, size, path)
         {
             m_Gravity = speed;
+
             //se collide è true ed è di tipo player player pos = y della piattaforma + altezza piattaforma
             //se il player preme w rimettere a false la collisione
         }

@@ -14,8 +14,9 @@ namespace Fast2D_TestGame.Scripts
         public Scene CurrentScene;
         Window m_Window;
         GameObject m_Player;
-        GameObject m_PlatformManager;
+        PlatformManager m_PlatformManager;
         Object m_Background;
+        Platform m_StartingPlatform;
 
         public Game(int WinWdth, int WinHgth, string WinName)
         {
@@ -35,16 +36,18 @@ namespace Fast2D_TestGame.Scripts
             //gameobjects
             m_Background = new Background(new Vector2(0, 0), new Vector2(800, 800), "../../Assets/bg.jpg", 100);
             CurrentScene.AddObejctToScene(m_Background);
-            m_Player = new Player(new Vector2(350, 700), new Vector2(64,64), "../../Assets/spr_link.png", 100, 500);
+            m_Player = new Player(new Vector2(350, 300), new Vector2(64, 64), "../../Assets/spr_link.png", 100, 500);
             m_Player.CreateCollider(ColliderType.Rectangle);
+            m_StartingPlatform = new Platform(new Vector2(m_Player.Position.X, m_Player.Position.Y+m_Player.Size.Y), new Vector2(100, 18), "../../Assets/spr_platform.png", 100);
+            m_StartingPlatform.CreateCollider(ColliderType.Rectangle);
             m_PlatformManager = new PlatformManager();
-            
+
             //m_PlatformPool = new Platform(new Vector2(m_Player.Position.X - 800, m_Player.Position.Y + m_Player.Size.Y), new Vector2(100, 80), "../../Assets/spr_platform.png", 0f, 300f, 10);
             //m_PlatformPool.CreateCollider(ColliderType.Rectangle);
 
             CurrentScene.AddObejctToScene(m_Player);
+            CurrentScene.AddObejctToScene(m_StartingPlatform);
             CurrentScene.AddObejctToScene(m_PlatformManager);
-            //CurrentScene.AddObejctToScene(m_PlatformPool);
             CurrentScene.AddObejctToScene(physicsManager);
 
         }
